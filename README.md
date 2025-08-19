@@ -14,17 +14,6 @@
 
 Welcome to **Phil's Lab** — my tiny lil' collection of tools for VRChat and Unity creators! This repository is the home for all current and future add-ons, utilities, and packages I make. Whether you're looking for something to streamline your workflow or add new features to your projects, you'll find it here.
 
-
-## ⭐ Support Me
-If you like my work, consider buying me a coffee!
-
-<p align="center">
-  <a href="https://ko-fi.com/philuu" target="_blank">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi" />
-  </a>
-</p>
-
-
 ## 📦 Available Tools
 
 This repository is home to a growing collection of utilities and add-ons for Unity and VRChat creators. Each tool is designed to make your workflow smoother and more efficient. As new tools are released, they will be listed here!
@@ -43,5 +32,14 @@ More tools and add-ons will be added here in the future — stay tuned!
 This repository is published as a VCC-compatible package listing. You can browse, search, and add any of my tools directly from the [landing page](https://hugphiluu.github.io/PhilsLab/). The listing is always up-to-date with the latest releases.
 
 ---
+
+## ⭐ Support Me
+If you like my work, consider buying me a coffee!
+
+<p align="left">
+  <a href="https://ko-fi.com/philuu" target="_blank">
+    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi" />
+  </a>
+</p>
 
 Thank you for visiting Phil's Lab!
