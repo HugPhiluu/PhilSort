@@ -86,9 +86,9 @@ public static class PhilSorterContextMenu
 
         private void OnGUI()
         {
-            EditorGUILayout.LabelField("Move '" + Path.GetFileName(selectedFolderPath) + "' To:", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(string.Format(PhilSorterLocalization.Get("move_to")) + " '" + Path.GetFileName(selectedFolderPath) + "' ", EditorStyles.boldLabel);
             EditorGUILayout.Space();
-            search = EditorGUILayout.TextField("Search", search);
+            search = EditorGUILayout.TextField(PhilSorterLocalization.Get("search"), search);
             EditorGUILayout.Space();
             scroll = EditorGUILayout.BeginScrollView(scroll);
 
@@ -141,7 +141,7 @@ public static class PhilSorterContextMenu
 
             if (config.recentTargets != null && config.recentTargets.Count > 0)
             {
-                EditorGUILayout.LabelField("Recent", recentStyle);
+                EditorGUILayout.LabelField(PhilSorterLocalization.Get("recent"), recentStyle);
                 foreach (var recent in config.recentTargets)
                 {
                     Rect rowRect = EditorGUILayout.GetControlRect(false, 32);
@@ -179,7 +179,7 @@ public static class PhilSorterContextMenu
             }
             EditorGUILayout.EndScrollView();
             EditorGUILayout.Space();
-            if (GUILayout.Button("Cancel"))
+            if (GUILayout.Button(PhilSorterLocalization.Get("cancel")))
             {
                 Close();
             }
@@ -213,10 +213,10 @@ public static class PhilSorterContextMenu
             {
                 int choice = EditorUtility.DisplayDialogComplex(
                     "Phil's Sorter",
-                    $"Are you sure you want to move '{folderName}' to '{destination}'?",
-                    "Move", // 0
-                    "Cancel", // 1
-                    "Move and don't ask again" // 2
+                    PhilSorterLocalization.Get("confirm_move", folderName, destination),
+                    PhilSorterLocalization.Get("move"),
+                    PhilSorterLocalization.Get("cancel"),
+                    PhilSorterLocalization.Get("move_and_dont_ask")
                 );
                 if (choice == 1) return; // Cancel
                 if (choice == 2)
@@ -398,7 +398,7 @@ public static class PhilSorterContextMenu
         // --- Confirm before move ---
         if (config.confirmBeforeMove)
         {
-            if (!EditorUtility.DisplayDialog("Phil's Sorter", $"Are you sure you want to move '{folderName}' to '{destination}'?", "Move", "Cancel"))
+            if (!EditorUtility.DisplayDialog("Phil's Sorter", PhilSorterLocalization.Get("confirm_move", folderName, destination), PhilSorterLocalization.Get("move"), PhilSorterLocalization.Get("cancel")))
                 return;
         }
 
@@ -628,7 +628,7 @@ public static class PhilSorterContextMenu
         }
         if (config != null && config.showDebugLogs) Debug.Log($"[Phil's Sorter] Patched {patchCount} scripts for hardcoded paths");
         EditorUtility.DisplayDialog("Phil's Sorter - Patch Complete",
-            $"Patched {patchCount} script(s) to update hardcoded paths.\n\nYou should still review your code for any issues.", "OK");
+            PhilSorterLocalization.Get("patch_complete", patchCount), PhilSorterLocalization.Get("ok"));
     }
 }
 

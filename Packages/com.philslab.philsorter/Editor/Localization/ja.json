@@ -1,0 +1,61 @@
+  {
+  "remove": "削除"
+  , "target_folders_configurable": "ターゲットフォルダー (設定可能):"
+  , "add_new_target_folder": "新しいターゲットフォルダーを追加:"
+  , "display_name": "表示名"
+  , "tip_add_selected_folder": "ヒント: プロジェクトウィンドウで1つ以上のフォルダーを選択し、『選択したフォルダーをターゲットに追加』をクリックしてください。"
+  , "action_history": "アクション履歴:"
+  , "no_history_yet": "履歴はまだありません。"
+  , "jump": "ジャンプ"
+  , "jump_failed_title": "ジャンプ失敗"
+  , "settings_title": "Phil's Sorter 設定"
+  , "language": "言語"
+  , "category_manager": "カテゴリマネージャー"
+  , "drag_to_reorder": "ドラッグして並べ替え、または削除をクリックしてください。"
+  , "default_category": "デフォルト"
+  , "new_category": "新しいカテゴリ:"
+  , "add": "追加"
+  , "close": "閉じる"
+  , "jump_to_new_folder": "移動後に新しいフォルダーを選択"
+  , "auto_select_after_move": "移動後に自動的にフォルダーを選択します。"
+  , "always_confirm_before_move": "フォルダー移動前に必ず確認する"
+  , "show_confirm_dialog": "すべての移動前に確認ダイアログを表示します。"
+  , "warn_if_scripts": "スクリプトが含まれている場合は警告する"
+  , "extra_warning_scripts": "スクリプトが存在する場合に追加警告。"
+  , "show_patch_dialog": "ハードコーディングパスのパッチダイアログを表示"
+  , "offer_patch_hardcoded": "ハードコーディングされたパスをパッチするオプションを表示します。"
+  , "show_recent_targets": "移動メニューに最近使ったターゲットを表示"
+  , "display_recent_targets": "最近使ったターゲットを表示します。"
+  , "show_debug_logs": "デバッグログをコンソールに表示"
+  , "enable_extra_debug": "追加のデバッグ出力を有効にします。"
+  , "enable_experimental": "実験的な機能を有効にする"
+  , "try_new_features": "リリース前に新機能を試します。"
+  , "move_to": "移動先...",
+  "move_folder_to": "フォルダーの移動先...",
+  "cancel": "キャンセル",
+  "search": "検索",
+  "recent": "最近使った項目",
+  "no_target_folders": "ターゲットフォルダーが設定されていません。Window/Phil's Sorter (Config) で追加してください。",
+  "ok": "OK",
+  "confirm_move": "'{0}' を '{1}' に移動してもよろしいですか？",
+  "move": "移動",
+  "move_and_dont_ask": "今後確認しないで移動",
+  "duplicate_folder": "ターゲットに '{0}' という名前のフォルダーが既に存在します。どうしますか？",
+  "merge": "マージ",
+  "rename": "名前を変更",
+  "script_warning": "このフォルダーにはC#スクリプトが含まれています。移動すると参照が壊れる可能性があります。続行しますか？",
+  "move_anyway": "強制移動",
+  "patch_and_move": "パッチして移動",
+  "hardcoded_paths_warning": "警告: 次のスクリプトにはハードコーディングされたアセットパスまたは Application.dataPath 参照があります:",
+  "patch_complete": "{0} 個のスクリプトのパスを修正しました。\n\n念のためコードを確認してください。",
+  "jump_failed": "パスが見つかりません: {0}",
+  "no_selection": "プロジェクトウィンドウで1つ以上のフォルダーを選択してください。",
+  "add_selected_folder": "選択したフォルダーをターゲットに追加",
+  "manage_categories": "カテゴリを管理",
+  "save_config": "設定を保存",
+  "settings": "設定",
+  "general": "一般",
+  "advanced": "詳細",
+  "credits": "クレジット",
+  "support_me": "Ko-fiでサポート"
+}
