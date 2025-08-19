@@ -1,0 +1,12 @@
+{
+  "name": "com.philslab.philsort",
+  "displayName": "PhilSort",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "A Unity Editor extension to organize and manage project folders.",
+  "vrchatVersion": "2022.1.1",
+  "author": {
+    "name": "Philuu",
+    "url": "https://github.com/hugphiluu"
+  }
+}
