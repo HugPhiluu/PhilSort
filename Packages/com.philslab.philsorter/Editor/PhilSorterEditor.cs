@@ -16,7 +16,7 @@ public class PhilSorterWindow : EditorWindow
     private string search = "";
     private int selectedTab = 0;
     private int selectedCategoryIndex = 0;
-    private static readonly string[] tabs = { "Targets", "Recent", "Settings" };
+    private static readonly string[] tabs = { "Targets", "History", "Settings" };
     public List<string> categories = new List<string> { "Default" };
     private Object lastSelection = null;
 
@@ -73,9 +73,9 @@ public class PhilSorterWindow : EditorWindow
         {
             DrawTargetFoldersUI();
         }
-        else if (selectedTab == 1) // Recent
+        else if (selectedTab == 1) // History
         {
-            DrawRecentUI();
+            DrawHistoryUI();
         }
         else if (selectedTab == 2) // Settings
         {
@@ -109,7 +109,14 @@ public class PhilSorterWindow : EditorWindow
                 {
                     Selection.activeObject = AssetDatabase.LoadAssetAtPath<Object>(folder.path);
                 }
-                EditorGUILayout.LabelField(folder.displayName, GUILayout.Width(120));
+                // Editable Display Name
+                string newName = EditorGUILayout.TextField(folder.displayName, GUILayout.Width(120));
+                if (newName != folder.displayName)
+                {
+                    folder.displayName = newName;
+                    EditorUtility.SetDirty(config);
+                    AssetDatabase.SaveAssets();
+                }
                 EditorGUILayout.LabelField(folder.path, EditorStyles.miniLabel);
                 if (GUILayout.Button("Remove", GUILayout.Width(60)))
                 {
@@ -138,7 +145,7 @@ public class PhilSorterWindow : EditorWindow
             CategoryManagerWindow.ShowWindow(this);
         }
         EditorGUILayout.EndHorizontal();
-        EditorGUILayout.HelpBox("Tip: Select a folder in the Project window, then click 'Add Selected Folder as Target'.", MessageType.Info);
+        EditorGUILayout.HelpBox("Tip: Select one or more folders in the Project window (multi-select supported), then click 'Add Selected Folder as Target'.", MessageType.Info);
         if (GUILayout.Button("Save Config"))
         {
             EditorUtility.SetDirty(config);
@@ -147,21 +154,34 @@ public class PhilSorterWindow : EditorWindow
         }
     }
 
-    private void DrawRecentUI()
+    // --- History Tab ---
+    private void DrawHistoryUI()
     {
-        EditorGUILayout.LabelField("Recently Used Targets:", EditorStyles.boldLabel);
-        if (config.recentTargets == null || config.recentTargets.Count == 0)
+        EditorGUILayout.LabelField("Action History:", EditorStyles.boldLabel);
+        if (config.history == null || config.history.Count == 0)
         {
-            EditorGUILayout.LabelField("No recent targets.");
+            EditorGUILayout.LabelField("No history yet.");
             return;
         }
-        foreach (var path in config.recentTargets ?? new List<string>())
+        EditorGUILayout.Space();
+        foreach (var entry in config.history.OrderByDescending(e => e.timestamp))
         {
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(path, EditorStyles.miniLabel);
-            if (GUILayout.Button("Select", GUILayout.Width(60)))
+            string label = $"[{entry.timestamp}] {entry.action}: {entry.path}";
+            if (!string.IsNullOrEmpty(entry.extra))
+                label += $" → {entry.extra}";
+            EditorGUILayout.LabelField(label, EditorStyles.miniLabel);
+            if (GUILayout.Button("Jump", GUILayout.Width(50)))
             {
-                Selection.activeObject = AssetDatabase.LoadAssetAtPath<Object>(path);
+                string jumpPath = entry.action == "Move" && !string.IsNullOrEmpty(entry.extra) ? entry.extra : entry.path;
+                if (!string.IsNullOrEmpty(jumpPath))
+                {
+                    var obj = AssetDatabase.LoadAssetAtPath<Object>(jumpPath);
+                    if (obj != null)
+                        Selection.activeObject = obj;
+                    else
+                        EditorUtility.DisplayDialog("Jump Failed", $"Could not find folder at path: {jumpPath}", "OK");
+                }
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -182,6 +202,7 @@ public class PhilSorterWindow : EditorWindow
         // Title
         EditorGUILayout.LabelField("Phil's Sorter Settings", titleStyle, GUILayout.Height(32));
         GUILayout.Space(8);
+
 
         // General Section
         EditorGUILayout.BeginVertical(sectionStyle);
@@ -261,38 +282,63 @@ public class PhilSorterWindow : EditorWindow
 
     private void AddSelectedFolder()
     {
-        Object selected = Selection.activeObject;
-        if (selected == null)
+        Object[] selectedObjects = Selection.objects;
+        if (selectedObjects == null || selectedObjects.Length == 0)
         {
-            Debug.LogWarning("No object selected in the Project window.");
+            EditorUtility.DisplayDialog("No Selection", "Please select one or more folders in the Project window.", "OK");
             if (config != null && config.showDebugLogs) Debug.LogWarning("[Phil's Sorter] AddSelectedFolder: No selection");
             return;
         }
-        string path = AssetDatabase.GetAssetPath(selected);
-        if (!AssetDatabase.IsValidFolder(path))
-        {
-            Debug.LogWarning("Selected object is not a valid folder: " + path);
-            if (config != null && config.showDebugLogs) Debug.LogWarning($"[Phil's Sorter] AddSelectedFolder: Not a valid folder: {path}");
-            return;
-        }
-        if (config.targetFolders.Any(f => f.path == path))
-        {
-            Debug.LogWarning("Folder already in targets: " + path);
-            if (config != null && config.showDebugLogs) Debug.LogWarning($"[Phil's Sorter] AddSelectedFolder: Already in targets: {path}");
-            return;
-        }
+
+        List<string> added = new List<string>();
+        List<string> already = new List<string>();
+        List<string> invalid = new List<string>();
         string category = (categories.Count > selectedCategoryIndex && selectedCategoryIndex >= 0) ? categories[selectedCategoryIndex] : "Default";
-        config.targetFolders.Add(new TargetFolder
+
+        foreach (var obj in selectedObjects)
         {
-            path = path,
-            displayName = string.IsNullOrEmpty(newDisplayName) ? Path.GetFileName(path) : newDisplayName,
-            category = category
-        });
-        EditorUtility.SetDirty(config);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-        if (config != null && config.showDebugLogs) Debug.Log($"[Phil's Sorter] Added to targets: {path} (category: {category})");
-        Debug.Log("Added to Phil's Sorter targets: " + path);
+            if (obj == null) continue;
+            string path = AssetDatabase.GetAssetPath(obj);
+            if (!AssetDatabase.IsValidFolder(path))
+            {
+                invalid.Add(path);
+                if (config != null && config.showDebugLogs) Debug.LogWarning($"[Phil's Sorter] AddSelectedFolder: Not a valid folder: {path}");
+                continue;
+            }
+            if (config.targetFolders.Any(f => f.path == path))
+            {
+                already.Add(path);
+                if (config != null && config.showDebugLogs) Debug.LogWarning($"[Phil's Sorter] AddSelectedFolder: Already in targets: {path}");
+                continue;
+            }
+            string displayName = string.IsNullOrEmpty(newDisplayName) || selectedObjects.Length > 1 ? Path.GetFileName(path) : newDisplayName;
+            config.targetFolders.Add(new TargetFolder
+            {
+                path = path,
+                displayName = displayName,
+                category = category
+            });
+            added.Add(path);
+            if (config != null && config.showDebugLogs) Debug.Log($"[Phil's Sorter] Added to targets: {path} (category: {category})");
+
+            // Log to history
+            if (config.history == null) config.history = new List<SorterConfig.HistoryEntry>();
+            config.history.Add(new SorterConfig.HistoryEntry {
+                action = "SetTarget",
+                path = path,
+                extra = "",
+                timestamp = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            });
+        }
+
+        if (added.Count > 0)
+        {
+            EditorUtility.SetDirty(config);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+
         newDisplayName = "";
     }
 

@@ -65,3 +65,4 @@ Assets/PackageMakerWindowData.asset*
 Packages/com.philslab.philsorter/Editor/PhilSorterConfig.asset
 Packages/com.philslab.philsorter/Editor/PhilSorterConfig.asset.meta
 UserSettings/Layouts/default-2022.dwlt
+*.meta

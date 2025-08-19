@@ -211,8 +211,21 @@ public static class PhilSorterContextMenu
             // --- Confirm before move ---
             if (config.confirmBeforeMove)
             {
-                if (!EditorUtility.DisplayDialog("Phil's Sorter", $"Are you sure you want to move '{folderName}' to '{destination}'?", "Move", "Cancel"))
-                    return;
+                int choice = EditorUtility.DisplayDialogComplex(
+                    "Phil's Sorter",
+                    $"Are you sure you want to move '{folderName}' to '{destination}'?",
+                    "Move", // 0
+                    "Cancel", // 1
+                    "Move and don't ask again" // 2
+                );
+                if (choice == 1) return; // Cancel
+                if (choice == 2)
+                {
+                    config.confirmBeforeMove = false;
+                    UnityEditor.EditorUtility.SetDirty(config);
+                    UnityEditor.AssetDatabase.SaveAssets();
+                }
+                // else (0) Move: continue
             }
 
             // --- Script/hardcoded path warning ---
@@ -273,7 +286,15 @@ public static class PhilSorterContextMenu
                     MergeFolders(folderPath, destination);
                     AssetDatabase.DeleteAsset(folderPath); // Remove the old folder
                     Debug.Log($"Merged folder '{folderPath}' into '{destination}'");
-                    AddRecentTargetStatic(targetPath);
+                    // Log to history
+                    if (config.history == null) config.history = new List<SorterConfig.HistoryEntry>();
+                    config.history.Add(new SorterConfig.HistoryEntry {
+                        action = "Move",
+                        path = folderPath,
+                        extra = destination,
+                        timestamp = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    });
+                    EditorUtility.SetDirty(config);
                     AssetDatabase.Refresh();
                     if (config.jumpToNewFolder)
                         JumpToFolderInProjectWindow(destination);
@@ -309,7 +330,15 @@ public static class PhilSorterContextMenu
                     else
                     {
                         Debug.Log($"Moved folder to: {newName}");
-                        AddRecentTargetStatic(targetPath);
+                        // Log to history
+                        if (config.history == null) config.history = new List<SorterConfig.HistoryEntry>();
+                        config.history.Add(new SorterConfig.HistoryEntry {
+                            action = "Move",
+                            path = folderPath,
+                            extra = newName,
+                            timestamp = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                        });
+                        EditorUtility.SetDirty(config);
                         AssetDatabase.Refresh();
                         if (config.jumpToNewFolder)
                             JumpToFolderInProjectWindow(newName);
@@ -326,7 +355,15 @@ public static class PhilSorterContextMenu
             else
             {
                 Debug.Log($"Moved folder to: {destination}");
-                AddRecentTargetStatic(targetPath);
+                // Log to history
+                if (config.history == null) config.history = new List<SorterConfig.HistoryEntry>();
+                config.history.Add(new SorterConfig.HistoryEntry {
+                    action = "Move",
+                    path = folderPath,
+                    extra = destination,
+                    timestamp = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                });
+                EditorUtility.SetDirty(config);
                 AssetDatabase.Refresh();
                 if (config.jumpToNewFolder)
                     JumpToFolderInProjectWindow(destination);

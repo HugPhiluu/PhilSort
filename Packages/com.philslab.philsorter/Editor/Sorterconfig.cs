@@ -13,9 +13,20 @@ public class SorterConfig : ScriptableObject
     public bool showDebugLogs = false;
     public bool enableExperimental = false;
  
+
     public List<TargetFolder> targetFolders = new List<TargetFolder>();
     public List<string> recentTargets = new List<string>();
     public List<string> customCategories = new List<string>();
+
+    [System.Serializable]
+    public class HistoryEntry
+    {
+        public string action; // "Move" or "SetTarget"
+        public string path;
+        public string extra; // e.g. destination for move
+        public string timestamp;
+    }
+    public List<HistoryEntry> history = new List<HistoryEntry>();
 
     [System.Serializable]
     public class TargetFolder
