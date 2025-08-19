@@ -11,27 +11,18 @@
 <body>
   <div class="col align-items-center content">
     <div id="listingInfo" class="col mb-4 w-100 align-items-center">
-      {{~ if listingInfo.BannerImage; ~}}
-        <div class="bannerImage" style="background-image: url({{ listingInfo.BannerImageUrl }})"></div>
-      {{~ end; ~}}
-      <h1>
-        {{~ listingInfo.Name ~}}
-      </h1>
-      {{~ if listingInfo.Description; ~}}
-        <div class="caption1 mb-2">{{ listingInfo.Description }}</div>
-      {{~ end; ~}}
+      <div class="bannerImage" style="background-image: url('./phils-lab-banner.png')"></div>
+      <h1>Phil's Lab Add-ons Listing</h1>
+      <div class="caption1 mb-2">
+        Welcome to the official listing for <strong>Phil's Lab Add-ons</strong>! Here you can browse, search, and add a variety of high-quality packages and tools created by Phil's Lab for VRChat and Unity development. This page always shows the latest available add-ons, with details, documentation links, and easy integration into your projects via VCC.
+      </div>
       <div class="col align-items-center">
-        {{~ if listingInfo.Author.Email; ~}}
-        <fluent-tooltip id="publishedByTooltip" anchor="publishedByText">
-          {{ listingInfo.Author.Email }}
-        </fluent-tooltip>
-        {{~ end; ~}}
-        <div class="caption1 mb-2" id="publishedByText">Published by <a href="{{listingInfo.Author.Url}}" target="_blank">{{ listingInfo.Author.Name }}</a></div>
-        {{~ if listingInfo.InfoLink.Url ~}}
-          <div class="caption1" id="publishedByText">
-            <a href="{{listingInfo.InfoLink.Url}}" target="_blank">{{ if listingInfo.InfoLink.Text; listingInfo.InfoLink.Text; else; "Lean More"; end; }}</a>
-          </div>
-        {{~ end; ~}}
+        <div class="caption1 mb-2" id="publishedByText">
+          Published by <a href="https://github.com/HugPhiluu" target="_blank">Philuu</a>
+        </div>
+        <div class="caption1" id="publishedByText">
+          <a href="https://github.com/HugPhiluu/PhilsLab" target="_blank">Learn More</a>
+        </div>
       </div>
     </div>
     <div class="addToVccBlock mt-4 row align-items-center">
