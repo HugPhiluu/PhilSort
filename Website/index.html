@@ -11,18 +11,27 @@
 <body>
   <div class="col align-items-center content">
     <div id="listingInfo" class="col mb-4 w-100 align-items-center">
-      <div class="bannerImage" style="background-image: url('./banner.png')"></div>
-      <h1>Phil's Lab Add-ons Listing</h1>
-      <div class="caption1 mb-2" style="text-align: center;">
-        Browse and add high-quality tools for VRChat and Unity. Always up-to-date, easy to use, and ready for VCC!
-      </div>
+      {{~ if listingInfo.BannerImage; ~}}
+        <div class="bannerImage" style="background-image: url({{ listingInfo.BannerImageUrl }})"></div>
+      {{~ end; ~}}
+      <h1>
+        {{~ listingInfo.Name ~}}
+      </h1>
+      {{~ if listingInfo.Description; ~}}
+        <div class="caption1 mb-2">{{ listingInfo.Description }}</div>
+      {{~ end; ~}}
       <div class="col align-items-center">
-        <div class="caption1 mb-2" id="publishedByText">
-          Published by <a href="https://github.com/HugPhiluu" target="_blank">Philuu</a>
-        </div>
-        <div class="caption1" id="publishedByText">
-          <a href="https://github.com/HugPhiluu/PhilsLab" target="_blank">Learn More</a>
-        </div>
+        {{~ if listingInfo.Author.Email; ~}}
+        <fluent-tooltip id="publishedByTooltip" anchor="publishedByText">
+          {{ listingInfo.Author.Email }}
+        </fluent-tooltip>
+        {{~ end; ~}}
+        <div class="caption1 mb-2" id="publishedByText">Published by <a href="{{listingInfo.Author.Url}}" target="_blank">{{ listingInfo.Author.Name }}</a></div>
+        {{~ if listingInfo.InfoLink.Url ~}}
+          <div class="caption1" id="publishedByText">
+            <a href="{{listingInfo.InfoLink.Url}}" target="_blank">{{ if listingInfo.InfoLink.Text; listingInfo.InfoLink.Text; else; "Lean More"; end; }}</a>
+          </div>
+        {{~ end; ~}}
       </div>
     </div>
     <div class="addToVccBlock mt-4 row align-items-center">

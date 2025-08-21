@@ -1,6 +1,4 @@
 
-
-
 <div align="center">
   <img src="Website/banner.png" alt="Phil's Lab Banner" width="900" style="max-width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001; margin-bottom: 8px;"/>
   <br/>
@@ -10,26 +8,29 @@
   </a>
 </div>
 
-# Phil's Lab Add-ons
+# PhilSorter
 
-Welcome to **Phil's Lab** — my tiny lil' collection of tools for VRChat and Unity creators! This repository is the home for all current and future add-ons, utilities, and packages I make. Whether you're looking for something to streamline your workflow or add new features to your projects, you'll find it here.
+**PhilSorter** is a simple, fast, and user-friendly Unity Editor tool for organizing your Unity project folders. It allows you to configure target folders and quickly move assets or folders to these targets with just a few clicks.
 
-## 📦 Available Tools
+## What does PhilSorter do?
 
-This repository is home to a growing collection of utilities and add-ons for Unity and VRChat creators. Each tool is designed to make your workflow smoother and more efficient. As new tools are released, they will be listed here!
+PhilSorter provides a custom Editor window and context menu integration in Unity. Its main features include:
 
-### PhilSort
+- **Configurable Target Folders:** Set up and manage a list of target folders for your project.
+- **Quick Move:** Move selected folders or assets to any configured target folder in just a few clicks.
+- **Category Support:** Organize your targets into categories for better structure.
+- **History:** View a history of your move actions and quickly jump to previous locations.
+- **Settings:** Customize behavior, enable debug logs, and try experimental features.
+- **Localization:** Multi-language support for the UI.
+- **Safety:** Confirmation dialogs, script warnings, and undo support for safe operations.
 
-**PhilSort** is a simple, fast, and user-friendly tool for organizing your Unity project folders. Once set up, you can move folders to your configured target locations in just three clicks. Key features include:
-
-
-More tools and add-ons will be added here in the future — stay tuned!
+PhilSorter is designed to streamline project organization for Unity and VRChat creators, making it easy to keep your project tidy and well-structured.
 
 ---
 
 ## 📖 About This Listing
 
-This repository is published as a VCC-compatible package listing. You can browse, search, and add any of my tools directly from the [landing page](https://hugphiluu.github.io/PhilsLab/). The listing is always up-to-date with the latest releases.
+This repository is published as a VCC-compatible package listing. You can browse, search, and add PhilSorter directly from the [landing page](https://hugphiluu.github.io/PhilsLab/). The listing is always up-to-date with the latest releases.
 
 ---
 
@@ -42,4 +43,4 @@ If you like my work, consider buying me a coffee!
   </a>
 </p>
 
-Thank you for visiting Phil's Lab!
+Thank you for using PhilSorter!
