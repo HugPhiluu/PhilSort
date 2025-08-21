@@ -2,7 +2,7 @@
 <div align="center">
   <img src="Website/banner.png" alt="Phil's Lab Banner" width="900" style="max-width: 100%; border-radius: 12px; box-shadow: 0 2px 12px #0001; margin-bottom: 8px;"/>
   <br/>
-  <a href="https://hugphiluu.github.io/PhilsLab/" target="_blank" style="display: inline-block; margin: 18px 0 24px 0; text-decoration: none;">
+  <a href="https://hugphiluu.github.io/PhilSort/" target="_blank" style="display: inline-block; margin: 18px 0 24px 0; text-decoration: none;">
     <img src="Website/favicon.ico" alt="Add to VCC" width="28" style="vertical-align: middle; margin-right: 8px; border-radius: 6px; box-shadow: 0 1px 4px #0002;"/>
     <span style="font-size: 1.15em; font-weight: 600; color: #1976d2; vertical-align: middle; letter-spacing: 0.5px;">Add to VCC</span>
   </a>
