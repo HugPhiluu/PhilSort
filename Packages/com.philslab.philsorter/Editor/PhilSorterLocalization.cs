@@ -10,6 +10,24 @@ public static class PhilSorterLocalization
     private static string currentLanguage = "en";
     private static bool loaded = false;
 
+    private static string[] supportedLanguages;
+    private static string[] supportedLanguageLabels;
+    private static bool languagesScanned = false;
+
+    public static string[] SupportedLanguages {
+        get {
+            EnsureLanguagesScanned();
+            return supportedLanguages;
+        }
+    }
+    public static string[] SupportedLanguageLabels {
+        get {
+            EnsureLanguagesScanned();
+            return supportedLanguageLabels;
+        }
+    }
+    public static string CurrentLanguage => currentLanguage;
+
     public static void SetLanguage(string lang)
     {
         if (lang != currentLanguage)
@@ -35,10 +53,16 @@ public static class PhilSorterLocalization
     private static void LoadStrings()
     {
         strings.Clear();
+        EnsureLanguagesScanned();
         string locPath = $"Packages/com.philslab.philsorter/Editor/Localization/{currentLanguage}.json";
         if (!File.Exists(locPath))
         {
+            // fallback to en.json or first available
             locPath = $"Packages/com.philslab.philsorter/Editor/Localization/en.json";
+            if (!File.Exists(locPath) && supportedLanguages != null && supportedLanguages.Length > 0)
+            {
+                locPath = $"Packages/com.philslab.philsorter/Editor/Localization/{supportedLanguages[0]}.json";
+            }
         }
         if (File.Exists(locPath))
         {
@@ -56,7 +80,45 @@ public static class PhilSorterLocalization
         loaded = true;
     }
 
-    public static string[] SupportedLanguages = new string[] { "en", "ja" };
-    public static string[] SupportedLanguageLabels = new string[] { "English", "日本語" };
-    public static string CurrentLanguage => currentLanguage;
+    private static void EnsureLanguagesScanned()
+    {
+        if (languagesScanned) return;
+        string locDir = "Packages/com.philslab.philsorter/Editor/Localization";
+        if (!Directory.Exists(locDir))
+        {
+            supportedLanguages = new string[] { "en" };
+            supportedLanguageLabels = new string[] { "English" };
+            languagesScanned = true;
+            return;
+        }
+        var files = Directory.GetFiles(locDir, "*.json");
+        var langs = new List<string>();
+        var labels = new List<string>();
+        foreach (var file in files)
+        {
+            var name = Path.GetFileNameWithoutExtension(file);
+            langs.Add(name);
+            labels.Add(GetLanguageLabel(name));
+        }
+        supportedLanguages = langs.ToArray();
+        supportedLanguageLabels = labels.ToArray();
+        languagesScanned = true;
+    }
+
+    private static string GetLanguageLabel(string code)
+    {
+        // Add more as needed
+        switch (code)
+        {
+            case "en": return "English";
+            case "ja": return "日本語";
+            case "fr": return "Français";
+            case "de": return "Deutsch";
+            case "es": return "Español";
+            case "zh": return "中文";
+            case "ru": return "Русский";
+            case "ko": return "한국어";
+            default: return code;
+        }
+    }
 }

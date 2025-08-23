@@ -273,13 +273,19 @@ public class PhilSorterWindow : EditorWindow
 
     private void LoadConfig()
     {
-        // Find config next to this script, not in root, and never hardcode path
-        string scriptPath = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(this));
-        string dir = Path.GetDirectoryName(scriptPath).Replace("\\", "/");
-        string configPath = dir + "/PhilSorterConfig.asset";
-        config = AssetDatabase.LoadAssetAtPath<SorterConfig>(configPath);
-        if (config == null)
+        // Look for existing config anywhere in the project
+        string[] guids = AssetDatabase.FindAssets("t:SorterConfig");
+        if (guids != null && guids.Length > 0)
         {
+            string foundPath = AssetDatabase.GUIDToAssetPath(guids[0]);
+            config = AssetDatabase.LoadAssetAtPath<SorterConfig>(foundPath);
+        }
+        else
+        {
+            // Create new config next to this script (not hardcoded)
+            string scriptPath = AssetDatabase.GetAssetPath(MonoScript.FromScriptableObject(this));
+            string dir = Path.GetDirectoryName(scriptPath).Replace("\\", "/");
+            string configPath = dir + "/PhilSorterConfig.asset";
             config = ScriptableObject.CreateInstance<SorterConfig>();
             AssetDatabase.CreateAsset(config, configPath);
             AssetDatabase.SaveAssets();
