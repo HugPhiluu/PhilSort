@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"Language: en\n"
+
+## Main Menu Labels
+msgid "settings"
+msgstr "Settings"
+
+msgid "targets"
+msgstr "Targets"
+
+msgid "history"
+msgstr "History"
+
+## Target Folders UI
+msgid "target_folders_configurable"
+msgstr "Target Folders (Configurable):"
+
+msgid "add_new_target_folder"
+msgstr "Add New Target Folder:"
+
+msgid "display_name"
+msgstr "Display Name"
+
+msgid "add_selected_folder"
+msgstr "Add Selected Folder as Target"
+
+msgid "manage_categories"
+msgstr "Manage Categories"
+
+msgid "tip_add_selected_folder"
+msgstr "Tip: Select one or more folders in the Project window (multi-select supported), then click 'Add Selected Folder as Target'."
+
+## Actions
+msgid "remove"
+msgstr "Remove"
+
+msgid "add"
+msgstr "Add"
+
+msgid "close"
+msgstr "Close"
+
+msgid "cancel"
+msgstr "Cancel"
+
+msgid "ok"
+msgstr "OK"
+
+msgid "move"
+msgstr "Move"
+
+msgid "move_to"
+msgstr "Move To..."
+
+msgid "move_folder_to"
+msgstr "Move Folder To..."
+
+msgid "move_and_dont_ask"
+msgstr "Move and don't ask again"
+
+msgid "move_anyway"
+msgstr "Move Anyway"
+
+msgid "patch_and_move"
+msgstr "Patch and Move"
+
+msgid "search"
+msgstr "Search"
+
+msgid "recent"
+msgstr "Recent"
+
+msgid "jump"
+msgstr "Jump"
+
+msgid "merge"
+msgstr "Merge"
+
+msgid "rename"
+msgstr "Rename"
+
+## History
+msgid "action_history"
+msgstr "Action History:"
+
+msgid "no_history_yet"
+msgstr "No history yet."
+
+msgid "jump_failed_title"
+msgstr "Jump Failed"
+
+## Settings
+msgid "settings_title"
+msgstr "Phil's Sorter Settings"
+
+msgid "language"
+msgstr "Language"
+
+msgid "category_manager"
+msgstr "Category Manager"
+
+msgid "drag_to_reorder"
+msgstr "Drag to reorder, or click Remove to delete."
+
+msgid "default_category"
+msgstr "Default"
+
+msgid "new_category"
+msgstr "New Category:"
+
+msgid "jump_to_new_folder"
+msgstr "Jump to new folder after move"
+
+msgid "auto_select_after_move"
+msgstr "Automatically select the folder after moving."
+
+msgid "always_confirm_before_move"
+msgstr "Always confirm before moving folders"
+
+msgid "show_confirm_dialog"
+msgstr "Show a confirmation dialog before every move."
+
+msgid "warn_if_scripts"
+msgstr "Warn if folder contains scripts"
+
+msgid "extra_warning_scripts"
+msgstr "Extra warning if scripts are present."
+
+msgid "show_patch_dialog"
+msgstr "Show patch dialog for hardcoded paths"
+
+msgid "offer_patch_hardcoded"
+msgstr "Offer to patch scripts with hardcoded paths."
+
+msgid "show_recent_targets"
+msgstr "Show recent targets in move menu"
+
+msgid "display_recent_targets"
+msgstr "Display recently used targets."
+
+msgid "show_debug_logs"
+msgstr "Show debug logs in console"
+
+msgid "enable_extra_debug"
+msgstr "Enable extra debug output."
+
+msgid "enable_experimental"
+msgstr "Enable experimental features"
+
+msgid "try_new_features"
+msgstr "Try new features before release."
+
+## Messages and Warnings
+msgid "no_target_folders"
+msgstr "No target folders configured. Open Window/Phil's Sorter (Config) to add targets."
+
+msgid "confirm_move"
+msgstr "Are you sure you want to move '{0}' to '{1}'?"
+
+msgid "duplicate_folder"
+msgstr "A folder named '{0}' already exists in the target. What would you like to do?"
+
+msgid "script_warning"
+msgstr "This folder contains C# scripts. Moving it may break references in your project or third-party tools. Proceed anyway?"
+
+msgid "hardcoded_paths_warning"
+msgstr "Warning: The following scripts contain hardcoded asset paths or Application.dataPath references:"
+
+msgid "patch_complete"
+msgstr "Patched {0} script(s) to update hardcoded paths.\n\nYou should still review your code for any issues."
+
+## Additional missing keys
+msgid "general"
+msgstr "General"
+
+msgid "advanced"
+msgstr "Advanced"
+
+msgid "credits"
+msgstr "Credits"
+
+msgid "support_me"
+msgstr "Support Me ♥"
+
+msgid "save_config"
+msgstr "Save Config"
+
+msgid "no_selection_title"
+msgstr "No Selection"
+
+msgid "no_selection"
+msgstr "Please select at least one folder in the Project window."
+
+msgid "jump_failed"
+msgstr "Could not find path: {0}"

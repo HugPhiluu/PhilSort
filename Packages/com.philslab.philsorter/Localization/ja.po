@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"Language: ja\n"
+
+## メインメニューラベル
+msgid "settings"
+msgstr "設定"
+
+msgid "targets"
+msgstr "ターゲット"
+
+msgid "history"
+msgstr "履歴"
+
+## ターゲットフォルダーUI
+msgid "target_folders_configurable"
+msgstr "ターゲットフォルダー（設定可能）:"
+
+msgid "add_new_target_folder"
+msgstr "新しいターゲットフォルダーを追加:"
+
+msgid "display_name"
+msgstr "表示名"
+
+msgid "add_selected_folder"
+msgstr "選択したフォルダーをターゲットとして追加"
+
+msgid "manage_categories"
+msgstr "カテゴリー管理"
+
+msgid "tip_add_selected_folder"
+msgstr "ヒント: プロジェクトウィンドウで1つ以上のフォルダーを選択し（複数選択対応）、「選択したフォルダーをターゲットとして追加」をクリックしてください。"
+
+## アクション
+msgid "remove"
+msgstr "削除"
+
+msgid "add"
+msgstr "追加"
+
+msgid "close"
+msgstr "閉じる"
+
+msgid "cancel"
+msgstr "キャンセル"
+
+msgid "ok"
+msgstr "OK"
+
+msgid "move"
+msgstr "移動"
+
+msgid "move_to"
+msgstr "移動先..."
+
+msgid "move_folder_to"
+msgstr "フォルダーを移動..."
+
+msgid "move_and_dont_ask"
+msgstr "移動して再度確認しない"
+
+msgid "move_anyway"
+msgstr "とにかく移動"
+
+msgid "patch_and_move"
+msgstr "パッチして移動"
+
+msgid "search"
+msgstr "検索"
+
+msgid "recent"
+msgstr "最近"
+
+msgid "jump"
+msgstr "ジャンプ"
+
+msgid "merge"
+msgstr "マージ"
+
+msgid "rename"
+msgstr "名前変更"
+
+## 履歴
+msgid "action_history"
+msgstr "アクション履歴:"
+
+msgid "no_history_yet"
+msgstr "まだ履歴がありません。"
+
+msgid "jump_failed_title"
+msgstr "ジャンプに失敗しました"
+
+## 設定
+msgid "settings_title"
+msgstr "Phil's Sorter 設定"
+
+msgid "language"
+msgstr "言語"
+
+msgid "category_manager"
+msgstr "カテゴリー管理"
+
+msgid "drag_to_reorder"
+msgstr "ドラッグして並び替え、または削除をクリックして削除。"
+
+msgid "default_category"
+msgstr "デフォルト"
+
+msgid "new_category"
+msgstr "新しいカテゴリー:"
+
+msgid "jump_to_new_folder"
+msgstr "移動後に新しいフォルダーにジャンプ"
+
+msgid "auto_select_after_move"
+msgstr "移動後に自動的にフォルダーを選択する。"
+
+msgid "always_confirm_before_move"
+msgstr "フォルダー移動前に常に確認"
+
+msgid "show_confirm_dialog"
+msgstr "移動のたびに確認ダイアログを表示する。"
+
+msgid "warn_if_scripts"
+msgstr "フォルダーにスクリプトが含まれている場合に警告"
+
+msgid "extra_warning_scripts"
+msgstr "スクリプトが存在する場合の追加警告。"
+
+msgid "show_patch_dialog"
+msgstr "ハードコードされたパスのパッチダイアログを表示"
+
+msgid "offer_patch_hardcoded"
+msgstr "ハードコードされたパスを持つスクリプトのパッチを提供する。"
+
+msgid "show_recent_targets"
+msgstr "移動メニューに最近のターゲットを表示"
+
+msgid "display_recent_targets"
+msgstr "最近使用したターゲットを表示する。"
+
+msgid "show_debug_logs"
+msgstr "コンソールにデバッグログを表示"
+
+msgid "enable_extra_debug"
+msgstr "追加のデバッグ出力を有効にする。"
+
+msgid "enable_experimental"
+msgstr "実験的機能を有効にする"
+
+msgid "try_new_features"
+msgstr "リリース前の新機能を試す。"
+
+## メッセージと警告
+msgid "no_target_folders"
+msgstr "ターゲットフォルダーが設定されていません。ウィンドウ/Phil's Sorter (Config) を開いてターゲットを追加してください。"
+
+msgid "confirm_move"
+msgstr "'{0}' を '{1}' に移動してもよろしいですか？"
+
+msgid "duplicate_folder"
+msgstr "'{0}' という名前のフォルダーがターゲットに既に存在します。どうしますか？"
+
+msgid "script_warning"
+msgstr "このフォルダーにはC#スクリプトが含まれています。移動するとプロジェクトやサードパーティツールの参照が壊れる可能性があります。続行しますか？"
+
+msgid "hardcoded_paths_warning"
+msgstr "警告: 以下のスクリプトにはハードコードされたアセットパスやApplication.dataPath参照が含まれています:"
+
+msgid "patch_complete"
+msgstr "{0} 個のスクリプトにパッチを適用してハードコードされたパスを更新しました。\n\nコードに問題がないか確認することをお勧めします。"
+
+## 追加の不足キー
+msgid "general"
+msgstr "一般"
+
+msgid "advanced"
+msgstr "高度"
+
+msgid "credits"
+msgstr "クレジット"
+
+msgid "support_me"
+msgstr "サポートする ♥"
+
+msgid "save_config"
+msgstr "設定を保存"
+
+msgid "no_selection_title"
+msgstr "選択なし"
+
+msgid "no_selection"
+msgstr "プロジェクトウィンドウで少なくとも1つのフォルダーを選択してください。"
+
+msgid "jump_failed"
+msgstr "パスが見つかりませんでした: {0}"
