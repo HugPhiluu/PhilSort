@@ -3,10 +3,10 @@ using PhilSorter.Localization;
 
 namespace PhilSorter
 {
-    internal static class L10n
+    public static class L10n
     {
-        private const string PreferenceKey = "com.philslab.philsorter.lang";
-        private const string LocalizationPath = "Packages/com.philslab.philsorter/Localization";
+        public const string PreferenceKey = "com.philslab.philsorter.lang";
+        public const string LocalizationPath = "Packages/com.philslab.philsorter/Localization";
 
         public static PhilSorterL10n Localization { get; } = new PhilSorterL10n(LocalizationPath, "en", PreferenceKey);
 

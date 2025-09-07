@@ -4,10 +4,10 @@ using UnityEditorInternal;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using PhilSorter;
 
 // For referencing TargetFolder type
 using TargetFolder = SorterConfig.TargetFolder;
+using PhilSorter.Localization;
 
 public class PhilSorterWindow : EditorWindow
 {
@@ -86,8 +86,8 @@ public class PhilSorterWindow : EditorWindow
 
     private void DrawTargetFoldersUI()
     {
-        EditorGUILayout.LabelField(L10n.TrStr("target_folders_configurable"), EditorStyles.boldLabel);
-        search = EditorGUILayout.TextField(L10n.TrStr("search"), search);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("target_folders_configurable"), EditorStyles.boldLabel);
+        search = EditorGUILayout.TextField(PhilSorter.L10n.TrStr("search"), search);
         scroll = EditorGUILayout.BeginScrollView(scroll);
 
         var filtered = config.targetFolders
@@ -119,7 +119,7 @@ public class PhilSorterWindow : EditorWindow
                     AssetDatabase.SaveAssets();
                 }
                 EditorGUILayout.LabelField(folder.path, EditorStyles.miniLabel);
-                if (GUILayout.Button(L10n.TrStr("remove"), GUILayout.Width(60)))
+                if (GUILayout.Button(PhilSorter.L10n.TrStr("remove"), GUILayout.Width(60)))
                 {
                     config.targetFolders.Remove(folder);
                     break;
@@ -130,23 +130,23 @@ public class PhilSorterWindow : EditorWindow
         EditorGUILayout.EndScrollView();
 
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField(L10n.TrStr("add_new_target_folder"), EditorStyles.boldLabel);
-        newDisplayName = EditorGUILayout.TextField(L10n.TrStr("display_name"), newDisplayName);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("add_new_target_folder"), EditorStyles.boldLabel);
+        newDisplayName = EditorGUILayout.TextField(PhilSorter.L10n.TrStr("display_name"), newDisplayName);
         // Category dropdown
         if (categories.Count == 0) categories.Add("Default");
         selectedCategoryIndex = Mathf.Clamp(selectedCategoryIndex, 0, categories.Count - 1);
         selectedCategoryIndex = EditorGUILayout.Popup("Category", selectedCategoryIndex, categories.ToArray());
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button(L10n.TrStr("add_selected_folder")))
+        if (GUILayout.Button(PhilSorter.L10n.TrStr("add_selected_folder")))
         {
             AddSelectedFolder();
         }
-        if (GUILayout.Button(L10n.TrStr("manage_categories"), GUILayout.Width(140)))
+        if (GUILayout.Button(PhilSorter.L10n.TrStr("manage_categories"), GUILayout.Width(140)))
         {
             CategoryManagerWindow.ShowWindow(this);
         }
         EditorGUILayout.EndHorizontal();
-        EditorGUILayout.HelpBox(L10n.TrStr("tip_add_selected_folder"), MessageType.Info);
+        EditorGUILayout.HelpBox(PhilSorter.L10n.TrStr("tip_add_selected_folder"), MessageType.Info);
         if (GUILayout.Button("Save Config"))
         {
             EditorUtility.SetDirty(config);
@@ -158,10 +158,10 @@ public class PhilSorterWindow : EditorWindow
     // --- History Tab ---
     private void DrawHistoryUI()
     {
-        EditorGUILayout.LabelField(L10n.TrStr("action_history"), EditorStyles.boldLabel);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("action_history"), EditorStyles.boldLabel);
         if (config.history == null || config.history.Count == 0)
         {
-            EditorGUILayout.LabelField(L10n.TrStr("no_history_yet"));
+            EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("no_history_yet"));
             return;
         }
         EditorGUILayout.Space();
@@ -172,7 +172,7 @@ public class PhilSorterWindow : EditorWindow
             if (!string.IsNullOrEmpty(entry.extra))
                 label += $" → {entry.extra}";
             EditorGUILayout.LabelField(label, EditorStyles.miniLabel);
-            if (GUILayout.Button(L10n.TrStr("jump"), GUILayout.Width(50)))
+            if (GUILayout.Button(PhilSorter.L10n.TrStr("jump"), GUILayout.Width(50)))
             {
                 string jumpPath = entry.action == "Move" && !string.IsNullOrEmpty(entry.extra) ? entry.extra : entry.path;
                 if (!string.IsNullOrEmpty(jumpPath))
@@ -181,7 +181,7 @@ public class PhilSorterWindow : EditorWindow
                     if (obj != null)
                         Selection.activeObject = obj;
                     else
-                        EditorUtility.DisplayDialog(L10n.TrStr("jump_failed_title"), $"Could not find path: {jumpPath}", L10n.TrStr("ok"));
+                        EditorUtility.DisplayDialog(PhilSorter.L10n.TrStr("jump_failed_title"), $"Could not find path: {jumpPath}", PhilSorter.L10n.TrStr("ok"));
                 }
             }
             EditorGUILayout.EndHorizontal();
@@ -201,10 +201,10 @@ public class PhilSorterWindow : EditorWindow
         Color origColor = GUI.backgroundColor;
 
         // Title
-        EditorGUILayout.LabelField(L10n.TrStr("settings_title"), titleStyle, GUILayout.Height(32));
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("settings_title"), titleStyle, GUILayout.Height(32));
         GUILayout.Space(8);
         // Language selection
-        L10n.DrawLanguagePicker();
+        PhilSorter.L10n.DrawLanguagePicker();
 
         // General Section
         EditorGUILayout.BeginVertical(sectionStyle);
@@ -213,16 +213,16 @@ public class PhilSorterWindow : EditorWindow
         float oldLabelWidth = EditorGUIUtility.labelWidth;
         EditorGUIUtility.labelWidth = 260f;
 
-        config.jumpToNewFolder = EditorGUILayout.ToggleLeft(L10n.TrStr("jump_to_new_folder"), config.jumpToNewFolder);
-        EditorGUILayout.LabelField(L10n.TrStr("auto_select_after_move"), descStyle);
-        config.confirmBeforeMove = EditorGUILayout.ToggleLeft(L10n.TrStr("always_confirm_before_move"), config.confirmBeforeMove);
-        EditorGUILayout.LabelField(L10n.TrStr("show_confirm_dialog"), descStyle);
-        config.showScriptWarnings = EditorGUILayout.ToggleLeft(L10n.TrStr("warn_if_scripts"), config.showScriptWarnings);
-        EditorGUILayout.LabelField(L10n.TrStr("extra_warning_scripts"), descStyle);
-        config.showPatchDialog = EditorGUILayout.ToggleLeft(L10n.TrStr("show_patch_dialog"), config.showPatchDialog);
-        EditorGUILayout.LabelField(L10n.TrStr("offer_patch_hardcoded"), descStyle);
-        config.showRecentTargets = EditorGUILayout.ToggleLeft(L10n.TrStr("show_recent_targets"), config.showRecentTargets);
-        EditorGUILayout.LabelField(L10n.TrStr("display_recent_targets"), descStyle);
+        config.jumpToNewFolder = EditorGUILayout.ToggleLeft(PhilSorter.L10n.TrStr("jump_to_new_folder"), config.jumpToNewFolder);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("auto_select_after_move"), descStyle);
+        config.confirmBeforeMove = EditorGUILayout.ToggleLeft(PhilSorter.L10n.TrStr("always_confirm_before_move"), config.confirmBeforeMove);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("show_confirm_dialog"), descStyle);
+        config.showScriptWarnings = EditorGUILayout.ToggleLeft(PhilSorter.L10n.TrStr("warn_if_scripts"), config.showScriptWarnings);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("extra_warning_scripts"), descStyle);
+        config.showPatchDialog = EditorGUILayout.ToggleLeft(PhilSorter.L10n.TrStr("show_patch_dialog"), config.showPatchDialog);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("offer_patch_hardcoded"), descStyle);
+        config.showRecentTargets = EditorGUILayout.ToggleLeft(PhilSorter.L10n.TrStr("show_recent_targets"), config.showRecentTargets);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("display_recent_targets"), descStyle);
         EditorGUIUtility.labelWidth = oldLabelWidth;
         EditorGUILayout.EndVertical();
 
@@ -230,10 +230,10 @@ public class PhilSorterWindow : EditorWindow
         EditorGUILayout.BeginVertical(sectionStyle);
         EditorGUILayout.LabelField("🛠️  Advanced", headerStyle);
         EditorGUIUtility.labelWidth = 260f;
-        config.showDebugLogs = EditorGUILayout.ToggleLeft(L10n.TrStr("show_debug_logs"), config.showDebugLogs);
-        EditorGUILayout.LabelField(L10n.TrStr("enable_extra_debug"), descStyle);
-        config.enableExperimental = EditorGUILayout.ToggleLeft(L10n.TrStr("enable_experimental"), config.enableExperimental);
-        EditorGUILayout.LabelField(L10n.TrStr("try_new_features"), descStyle);
+        config.showDebugLogs = EditorGUILayout.ToggleLeft(PhilSorter.L10n.TrStr("show_debug_logs"), config.showDebugLogs);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("enable_extra_debug"), descStyle);
+        config.enableExperimental = EditorGUILayout.ToggleLeft(PhilSorter.L10n.TrStr("enable_experimental"), config.enableExperimental);
+        EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("try_new_features"), descStyle);
         EditorGUIUtility.labelWidth = oldLabelWidth;
         EditorGUILayout.EndVertical();
         GUI.backgroundColor = origColor;
@@ -256,7 +256,7 @@ public class PhilSorterWindow : EditorWindow
         GUILayout.Space(6);
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Support Me ♥", GUILayout.Width(180), GUILayout.Height(32)))
+        if (GUILayout.Button("Support Me on Ko-fi♥", GUILayout.Width(180), GUILayout.Height(32)))
         {
             Application.OpenURL("https://ko-fi.com/philuu");
         }
@@ -293,7 +293,7 @@ public class PhilSorterWindow : EditorWindow
         Object[] selectedObjects = Selection.objects;
         if (selectedObjects == null || selectedObjects.Length == 0)
         {
-            EditorUtility.DisplayDialog("No Selection", "Please select at least one folder in the Project window.", L10n.TrStr("ok"));
+            EditorUtility.DisplayDialog("No Selection", "Please select at least one folder in the Project window.", PhilSorter.L10n.TrStr("ok"));
             if (config != null && config.showDebugLogs) Debug.LogWarning("[Phil's Sorter] AddSelectedFolder: No selection");
             return;
         }
@@ -458,13 +458,13 @@ public class PhilSorterWindow : EditorWindow
         private void OnGUI()
         {
             GUILayout.Space(6);
-            EditorGUILayout.LabelField(L10n.TrStr("category_manager"), EditorStyles.boldLabel, GUILayout.Height(22));
-            EditorGUILayout.LabelField(L10n.TrStr("drag_to_reorder"), EditorStyles.miniLabel);
+            EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("category_manager"), EditorStyles.boldLabel, GUILayout.Height(22));
+            EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("drag_to_reorder"), EditorStyles.miniLabel);
             GUILayout.Space(8);
             // Default category (label, not text field)
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(8);
-            EditorGUILayout.LabelField(L10n.TrStr("default_category"), EditorStyles.boldLabel, GUILayout.Width(180));
+            EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("default_category"), EditorStyles.boldLabel, GUILayout.Width(180));
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
             GUILayout.Space(2);
@@ -482,9 +482,9 @@ public class PhilSorterWindow : EditorWindow
             // Add new category
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(8);
-            EditorGUILayout.LabelField(L10n.TrStr("new_category"), GUILayout.Width(100));
+            EditorGUILayout.LabelField(PhilSorter.L10n.TrStr("new_category"), GUILayout.Width(100));
             newCat = EditorGUILayout.TextField(newCat, GUILayout.Width(140));
-            if (GUILayout.Button(L10n.TrStr("add"), GUILayout.Width(60)))
+            if (GUILayout.Button(PhilSorter.L10n.TrStr("add"), GUILayout.Width(60)))
             {
                 if (!string.IsNullOrWhiteSpace(newCat) && !parentWindow.categories.Contains(newCat))
                 {
@@ -503,7 +503,7 @@ public class PhilSorterWindow : EditorWindow
             // Close button
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
-            if (GUILayout.Button(L10n.TrStr("close"), GUILayout.Width(80), GUILayout.Height(26)))
+            if (GUILayout.Button(PhilSorter.L10n.TrStr("close"), GUILayout.Width(80), GUILayout.Height(26)))
             {
                 Close();
             }

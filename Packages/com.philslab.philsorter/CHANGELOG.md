@@ -8,12 +8,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [1.1.0] - 2025-08-19
-### Added
+## [1.1.1] - 2025-09-07
+### Fixed
 - Full localization/multi-language support for all UI and dialogs (English and Japanese included by default)
-- Language selection dropdown in Settings tab
-- All user-facing strings are now loaded from language files and can be easily translated
-- New localization files: `en.json` and `ja.json` in the Editor/Localization folder
+- Ensured consistency between editor window and context menu localization implementations
+
+### Improved
+- Better code consistency across all localization implementations
+- Enhanced maintainability of localization system
 
 ### Changed
 - All hardcoded UI strings replaced with localization lookups

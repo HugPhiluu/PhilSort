@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace PhilSorter.Localization
 {
-    internal sealed class PhilSorterL10n
+    public sealed class PhilSorterL10n
     {
         private readonly string _localizationDirectoryPath;
         private readonly string _defaultLocale;
