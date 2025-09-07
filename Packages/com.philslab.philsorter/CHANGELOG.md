@@ -10,14 +10,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.1] - 2025-09-07
 ### Fixed
-- Full localization/multi-language support for all UI and dialogs (English and Japanese included by default)
+- Fixed localization not working when package is loaded through VPM/ALCOM in external Unity projects
+- Fixed missing localization strings in context menu system
+- Fixed hardcoded localization path that prevented proper loading in package manager installations
 - Ensured consistency between editor window and context menu localization implementations
 
 ### Improved
+- Dynamic package path resolution for localization files
 - Better code consistency across all localization implementations
 - Enhanced maintainability of localization system
+- Localization now works reliably across different Unity project configurations
 
 ### Changed
+- Updated localization system to dynamically find package path instead of using hardcoded paths
 - All hardcoded UI strings replaced with localization lookups
 - Improved maintainability and extensibility for future language support
 

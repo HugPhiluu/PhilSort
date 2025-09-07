@@ -10,7 +10,7 @@ namespace PhilSorter.Localization
 {
     public sealed class PhilSorterL10n
     {
-        private readonly string _localizationDirectoryPath;
+        private readonly Func<string> _localizationDirectoryPathProvider;
         private readonly string _defaultLocale;
         private readonly string _prefsKey;
         
@@ -20,9 +20,9 @@ namespace PhilSorter.Localization
         private static readonly string[] SupportedLanguageCodes = { "en", "ja" };
         private static readonly string[] SupportedLanguageLabels = { "English", "日本語" };
 
-        public PhilSorterL10n(string localizationDirectoryPath, string defaultLocale, string prefsKey)
+        public PhilSorterL10n(Func<string> localizationDirectoryPathProvider, string defaultLocale, string prefsKey)
         {
-            _localizationDirectoryPath = localizationDirectoryPath;
+            _localizationDirectoryPathProvider = localizationDirectoryPathProvider;
             _defaultLocale = defaultLocale;
             _prefsKey = prefsKey;
             _currentLocale = EditorPrefs.GetString(_prefsKey, _defaultLocale);
@@ -81,22 +81,37 @@ namespace PhilSorter.Localization
         {
             _strings.Clear();
             
-            var currentPoFile = Path.Combine(_localizationDirectoryPath, $"{_currentLocale}.po");
+            var localizationDirectoryPath = _localizationDirectoryPathProvider();
+            Debug.Log($"[PhilSorter] Attempting to load localization from: {localizationDirectoryPath}");
+            
+            var currentPoFile = Path.Combine(localizationDirectoryPath, $"{_currentLocale}.po");
+            Debug.Log($"[PhilSorter] Looking for localization file: {currentPoFile}");
             
             if (File.Exists(currentPoFile))
             {
+                Debug.Log($"[PhilSorter] Loading localization file: {currentPoFile}");
                 LoadPoFile(currentPoFile);
             }
             else if (_currentLocale != _defaultLocale)
             {
                 // Fallback to default locale
-                var defaultPoFile = Path.Combine(_localizationDirectoryPath, $"{_defaultLocale}.po");
+                var defaultPoFile = Path.Combine(localizationDirectoryPath, $"{_defaultLocale}.po");
+                Debug.Log($"[PhilSorter] Fallback to default locale file: {defaultPoFile}");
                 if (File.Exists(defaultPoFile))
                 {
                     LoadPoFile(defaultPoFile);
                 }
+                else
+                {
+                    Debug.LogWarning($"[PhilSorter] Could not find localization files in: {localizationDirectoryPath}");
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"[PhilSorter] Could not find localization file: {currentPoFile}");
             }
             
+            Debug.Log($"[PhilSorter] Loaded {_strings.Count} localization strings");
             _loaded = true;
         }
 
